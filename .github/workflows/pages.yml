@@ -1,15 +1,19 @@
 name: Deploy GitHub Pages
+
 on:
   push:
     branches: [main]
   workflow_dispatch:
+
 permissions:
   contents: read
   pages: write
   id-token: write
+
 concurrency:
   group: pages
   cancel-in-progress: true
+
 jobs:
   deploy:
     environment:
@@ -17,12 +21,38 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/configure-pages@v5
+      - name: Checkout
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+
+      - name: Validate public commercial surface
+        shell: bash
+        run: |
+          set -euo pipefail
+          if grep -R -n -E 'Prime Origami|zjzjzjzjzjzj-code\.github\.io|YOUR-AMAZON-TAG' --include='*.html' --include='*.js' .; then
+            echo 'Legacy brand, URL, or placeholder detected.' >&2
+            exit 1
+          fi
+          if grep -R -n -E '@gmail\.com' --include='*.html' .; then
+            echo 'Personal Gmail address detected in public HTML.' >&2
+            exit 1
+          fi
+          if grep -v '^https://foldflightlab\.github\.io/' sitemap.txt | grep -q .; then
+            echo 'Sitemap contains a non-production URL.' >&2
+            exit 1
+          fi
+          grep -q "commercializationEnabled:false" config.js
+          grep -q "foldflightlab-21" config.js
+
+      - name: Configure Pages
+        uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
         with:
           enablement: true
-      - uses: actions/upload-pages-artifact@v3
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3
         with:
           path: .
-      - id: deployment
-        uses: actions/deploy-pages@v4
+
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4

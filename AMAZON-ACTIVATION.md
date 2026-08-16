@@ -1,5 +1,11 @@
-# Amazon.de PartnerNet activation
+# Amazon.de PartnerNet state
 
-Human steps: make the repository/site public; fill the real Imprint; review privacy; publish GitHub Pages; apply to Amazon.de PartnerNet using the public URL; complete requested identity/tax/payment details; copy the exact tracking ID; replace `YOUR-AMAZON-TAG` in `config.js`; republish.
+Production identity: https://foldflightlab.github.io/
 
-The current buttons generate Amazon.de search URLs from category queries and append your tag after it is configured. Do not use your own purchases to qualify for program review. Do not scrape Amazon pages for prices, reviews or images. Use Amazon-approved APIs/tools later if your account receives access.
+Tracking ID: `foldflightlab-21`.
+
+The tracking ID remains stored in `config.js`, but `commercializationEnabled` is currently `false`. This intentionally pauses outbound affiliate attribution until a privacy-preserving, legally valid German provider/address solution is in place.
+
+When that legal gate is resolved, re-enable commercialization, verify every outbound Amazon URL contains `tag=foldflightlab-21`, and update the PartnerNet website list to the production root URL.
+
+Do not use personal purchases to qualify for programme review. Do not scrape Amazon pages for prices, reviews or images. Use Amazon-approved APIs/tools later if the account receives access.
