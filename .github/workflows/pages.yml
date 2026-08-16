@@ -41,8 +41,14 @@ jobs:
           grep -q "rel='sponsored nofollow noopener'" app.js
           for f in index.html products.html affiliate-disclosure.html origami-paper.html paper-airplanes.html origami-books.html; do grep -q "Als Amazon-Partner verdiene ich an qualifizierten Verkäufen." "$f"; done
           test -f sitemap.xml
+          test -f sitemap.txt
+          test -f community-questions.html
+          test -f community.css
           grep -q '<loc>https://foldflightlab.github.io/</loc>' sitemap.xml
-          for f in origami-paper.html paper-airplanes.html origami-books.html; do grep -q "https://foldflightlab.github.io/$f" sitemap.xml; done
+          for f in origami-paper.html paper-airplanes.html origami-books.html community-questions.html; do grep -q "https://foldflightlab.github.io/$f" sitemap.xml; done
+          grep -q 'https://foldflightlab.github.io/community-questions.html' sitemap.txt
+          grep -q 'User-agent: OAI-SearchBot' robots.txt
+          grep -q 'FAQPage' community-questions.html
           if grep -qE 'PrimeOrigamy|zjzjzjzjzjzj-code' sitemap.xml sitemap.txt robots.txt; then echo 'Legacy production URL detected in SEO files.' >&2; exit 1; fi
           python3 - <<'PY'
           from pathlib import Path
