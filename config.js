@@ -1,0 +1,1 @@
+window.PRIME_ORIGAMI={amazonDomain:'https://www.amazon.de',associateTag:'YOUR-AMAZON-TAG',links:{paper:'origami paper square sheets',planes:'paper airplane book beginners adults',beginner:'origami book beginners adults',advanced:'advanced origami book',tools:'bone folder origami ruler'}};

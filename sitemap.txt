@@ -1,0 +1,16 @@
+index.html
+products.html
+about.html
+affiliate-disclosure.html
+privacy.html
+imprint.html
+articles/choose-origami-paper.html
+articles/flight-variables.html
+articles/beginner-toolkit.html
+articles/wing-loading.html
+articles/paper-sizes.html
+articles/common-fold-mistakes.html
+articles/choose-an-origami-book.html
+articles/classroom-folding.html
+articles/test-paper-planes.html
+articles/store-paper.html
