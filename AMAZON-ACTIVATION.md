@@ -1,11 +1,17 @@
-# Amazon.de PartnerNet state
+# Amazon.de PartnerNet production state
 
-Production identity: https://foldflightlab.github.io/
+Production URL: https://foldflightlab.github.io/
 
-Tracking ID: `foldflightlab-21`.
+Tracking ID: `foldflightlab-21`
 
-The tracking ID remains stored in `config.js`, but `commercializationEnabled` is currently `false`. This intentionally pauses outbound affiliate attribution until a privacy-preserving, legally valid German provider/address solution is in place.
+Commercial affiliate links are enabled. The site generates Amazon.de search URLs from tightly scoped category queries and appends the tracking ID. Links are marked as affiliate/commercial links and use `rel="sponsored nofollow noopener"`.
 
-When that legal gate is resolved, re-enable commercialization, verify every outbound Amazon URL contains `tag=foldflightlab-21`, and update the PartnerNet website list to the production root URL.
+Required site disclosure:
+`Als Amazon-Partner verdiene ich an qualifizierten Verkäufen.`
 
-Do not use personal purchases to qualify for programme review. Do not scrape Amazon pages for prices, reviews or images. Use Amazon-approved APIs/tools later if the account receives access.
+Operating guardrails:
+- Do not use personal purchases to satisfy PartnerNet review requirements.
+- Do not scrape or manually copy Amazon prices, customer reviews, ratings, stock status, or product images.
+- Do not auto-redirect visitors to Amazon.
+- Do not bid on Amazon trademarks in paid search.
+- Keep the PartnerNet declared website URL synchronized with the production URL above.

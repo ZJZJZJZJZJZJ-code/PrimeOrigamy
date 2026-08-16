@@ -2,6 +2,7 @@ https://foldflightlab.github.io/
 https://foldflightlab.github.io/products.html
 https://foldflightlab.github.io/about.html
 https://foldflightlab.github.io/articles/choose-origami-paper.html
+https://foldflightlab.github.io/articles/test-paper-planes.html
 https://foldflightlab.github.io/articles/flight-variables.html
 https://foldflightlab.github.io/articles/beginner-toolkit.html
 https://foldflightlab.github.io/articles/wing-loading.html
@@ -9,5 +10,4 @@ https://foldflightlab.github.io/articles/paper-sizes.html
 https://foldflightlab.github.io/articles/common-fold-mistakes.html
 https://foldflightlab.github.io/articles/choose-an-origami-book.html
 https://foldflightlab.github.io/articles/classroom-folding.html
-https://foldflightlab.github.io/articles/test-paper-planes.html
 https://foldflightlab.github.io/articles/store-paper.html

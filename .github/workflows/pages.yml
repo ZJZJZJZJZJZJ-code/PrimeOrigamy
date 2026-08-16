@@ -28,31 +28,48 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          if grep -R -n -E 'Prime Origami|zjzjzjzjzjzj-code\.github\.io|YOUR-AMAZON-TAG' --include='*.html' --include='*.js' .; then
-            echo 'Legacy brand, URL, or placeholder detected.' >&2
+          if grep -R -n -E 'Prime Origami|zjzjzjzjzjzj-code\.github\.io|YOUR-AMAZON-TAG|Commercial link temporarily paused' --include='*.html' --include='*.js' .; then
+            echo 'Legacy brand, URL, placeholder, or paused-commercial copy detected.' >&2
             exit 1
           fi
           if grep -R -n -E '@gmail\.com' --include='*.html' . | grep -v -F 'serpentcianide@gmail.com' | grep -q .; then
             echo 'Unapproved Gmail address detected in public HTML.' >&2
             exit 1
           fi
-          if grep -v '^https://foldflightlab\.github\.io/' sitemap.txt | grep -q .; then
-            echo 'Sitemap contains a non-production URL.' >&2
-            exit 1
-          fi
-          grep -q "commercializationEnabled:false" config.js
-          grep -q "foldflightlab-21" config.js
+          grep -q "commercializationEnabled:true" config.js
+          grep -q "associateTag:'foldflightlab-21'" config.js
+          grep -q "rel='sponsored nofollow noopener'" app.js
+          for f in index.html products.html affiliate-disclosure.html; do grep -q "Als Amazon-Partner verdiene ich an qualifizierten Verkäufen." "$f"; done
+          test -f sitemap.xml
+          grep -q '<loc>https://foldflightlab.github.io/</loc>' sitemap.xml
+          if grep -qE 'PrimeOrigamy|zjzjzjzjzjzj-code' sitemap.xml sitemap.txt robots.txt; then echo 'Legacy production URL detected in SEO files.' >&2; exit 1; fi
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          root=Path('.').resolve(); exempt={'404.html','imprint.html','privacy.html','affiliate-disclosure.html'}
+          for path in root.rglob('*.html'):
+              text=path.read_text(encoding='utf-8'); rel=path.relative_to(root).as_posix()
+              if rel not in exempt:
+                  for required,label in [(r'<title>[^<]+</title>','title'),(r'<meta name="description" content="[^"]+"','meta description'),(r'<link rel="canonical" href="https://foldflightlab\.github\.io/[^"]*"','canonical')]:
+                      if not re.search(required,text,re.I): raise SystemExit(f'{rel}: missing {label}')
+              for href in re.findall(r'href="([^"]+)"',text):
+                  if href.startswith(('#','http://','https://','mailto:','tel:','javascript:')): continue
+                  clean=href.split('#',1)[0].split('?',1)[0]
+                  if not clean: continue
+                  target=(root/clean.lstrip('/')) if clean.startswith('/') else (path.parent/clean).resolve()
+                  if clean.endswith('/') or target.is_dir(): target=target/'index.html'
+                  if not target.exists(): raise SystemExit(f'{rel}: broken internal link -> {href}')
+          print('HTML/SEO/internal-link validation passed.')
+          PY
 
       - name: Configure Pages
         uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
         with:
           enablement: true
-
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3
         with:
           path: .
-
       - name: Deploy
         id: deployment
         uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4
