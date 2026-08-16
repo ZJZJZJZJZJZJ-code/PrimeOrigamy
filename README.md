@@ -1,12 +1,17 @@
-# Prime Origami
+# FoldFlight Lab
 
-Zero-budget Amazon.de affiliate content site for adults, parents, educators and paper-craft hobbyists.
+Independent origami and paper-flight editorial site hosted on GitHub Pages.
 
-## Launch gates
-1. Fill `imprint.html` with the real operator details.
-2. Review `privacy.html` for the actual hosting/analytics setup.
-3. Publish via GitHub Pages.
-4. Apply to Amazon.de PartnerNet using the live URL.
-5. Replace `YOUR-AMAZON-TAG` in `config.js` with the exact PartnerNet tag.
+Production: https://foldflightlab.github.io/
 
-The starter does not scrape Amazon prices, reviews or images and does not auto-redirect visitors to Amazon.
+Amazon.de Associates tracking ID: `foldflightlab-21`.
+
+## Operating principles
+- Original educational content first; affiliate links second.
+- No scraped Amazon prices, ratings, reviews, or product images.
+- No analytics, ad pixels, newsletter forms, or visitor accounts at this stage.
+- Public production contains no personal home address, personal phone number, or personal email address.
+- Commercial expansion remains gated on a privacy-preserving, legally valid German provider-address solution.
+
+## Production workflow
+Changes deploy from `main` through GitHub Actions to GitHub Pages over HTTPS.
