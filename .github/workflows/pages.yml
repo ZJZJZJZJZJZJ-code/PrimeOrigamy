@@ -36,19 +36,32 @@ jobs:
             echo 'Unapproved Gmail address detected in public HTML.' >&2
             exit 1
           fi
-          grep -q "commercializationEnabled:true" config.js
-          grep -q "associateTag:'foldflightlab-21'" config.js
+          grep -q '"commercializationEnabled":true' config.js
+          grep -q '"associateTag":"foldflightlab-21"' config.js
           grep -q "rel='sponsored nofollow noopener'" app.js
-          for f in index.html products.html affiliate-disclosure.html; do grep -q "Als Amazon-Partner verdiene ich an qualifizierten Verkäufen." "$f"; done
+          for f in index.html products.html affiliate-disclosure.html origami-paper.html paper-airplanes.html origami-books.html; do grep -q "Als Amazon-Partner verdiene ich an qualifizierten Verkäufen." "$f"; done
           test -f sitemap.xml
           grep -q '<loc>https://foldflightlab.github.io/</loc>' sitemap.xml
+          for f in origami-paper.html paper-airplanes.html origami-books.html; do grep -q "https://foldflightlab.github.io/$f" sitemap.xml; done
           if grep -qE 'PrimeOrigamy|zjzjzjzjzjzj-code' sitemap.xml sitemap.txt robots.txt; then echo 'Legacy production URL detected in SEO files.' >&2; exit 1; fi
           python3 - <<'PY'
           from pathlib import Path
-          import re
+          import re,json
           root=Path('.').resolve(); exempt={'404.html','imprint.html','privacy.html','affiliate-disclosure.html'}
+          raw=Path('config.js').read_text(encoding='utf-8')
+          payload=raw.split('=',1)[1].strip().rstrip(';')
+          cfg=json.loads(payload)
+          assert cfg.get('commercializationEnabled') is True
+          assert cfg.get('associateTag')=='foldflightlab-21'
+          links=cfg.get('links',{})
+          for key,item in links.items():
+              assert item.get('type') in {'search','direct'}, f'{key}: invalid link type'
+              if item['type']=='direct': assert re.fullmatch(r'[A-Z0-9]{10}',item.get('asin',''),re.I), f'{key}: invalid ASIN'
+              else: assert item.get('query','').strip(), f'{key}: empty search query'
+          used=set()
           for path in root.rglob('*.html'):
               text=path.read_text(encoding='utf-8'); rel=path.relative_to(root).as_posix()
+              used.update(re.findall(r'data-amazon="([^"]+)"',text))
               if rel not in exempt:
                   for required,label in [(r'<title>[^<]+</title>','title'),(r'<meta name="description" content="[^"]+"','meta description'),(r'<link rel="canonical" href="https://foldflightlab\.github\.io/[^"]*"','canonical')]:
                       if not re.search(required,text,re.I): raise SystemExit(f'{rel}: missing {label}')
@@ -59,7 +72,11 @@ jobs:
                   target=(root/clean.lstrip('/')) if clean.startswith('/') else (path.parent/clean).resolve()
                   if clean.endswith('/') or target.is_dir(): target=target/'index.html'
                   if not target.exists(): raise SystemExit(f'{rel}: broken internal link -> {href}')
-          print('HTML/SEO/internal-link validation passed.')
+          missing=sorted(used-set(links))
+          if missing: raise SystemExit('Missing Amazon config keys: '+', '.join(missing))
+          required_direct={'bookEasy','bookAbsolute','bookOneFold','bookEncyclopedia','bookDesignSecrets','bookChampion','bookSmithsonian'}
+          if not required_direct.issubset(used): raise SystemExit('Some curated books are not linked in HTML')
+          print(f'HTML/SEO/internal-link/Amazon-key validation passed. {len(used)} affiliate intents checked.')
           PY
 
       - name: Configure Pages
