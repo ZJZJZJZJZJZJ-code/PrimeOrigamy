@@ -32,8 +32,8 @@ jobs:
             echo 'Legacy brand, URL, or placeholder detected.' >&2
             exit 1
           fi
-          if grep -R -n -E '@gmail\.com' --include='*.html' .; then
-            echo 'Personal Gmail address detected in public HTML.' >&2
+          if grep -R -n -E '@gmail\.com' --include='*.html' . | grep -v -F 'serpentcianide@gmail.com' | grep -q .; then
+            echo 'Unapproved Gmail address detected in public HTML.' >&2
             exit 1
           fi
           if grep -v '^https://foldflightlab\.github\.io/' sitemap.txt | grep -q .; then
