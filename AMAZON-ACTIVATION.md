@@ -15,3 +15,17 @@ Operating guardrails:
 - Do not auto-redirect visitors to Amazon.
 - Do not bid on Amazon trademarks in paid search.
 - Keep the PartnerNet declared website URL synchronized with the production URL above.
+
+## Official book-cover gate
+
+Actual Amazon book-cover imagery remains blocked until the account is eligible for and registered with Amazon's authorized Creators API. Amazon's current documentation requires at least 10 qualifying sales in the preceding 30 days for PA API access through the Creators API.
+
+When PartnerNet exposes the authorized route:
+
+1. Register the application in Associates Central.
+2. Keep credentials out of this public repository and GitHub Pages.
+3. Request the configured ASINs with the authorized primary-image resource.
+4. Add only the returned image URLs to the matching `config.js` book records.
+5. Re-run validation and visually check title-to-cover matching before deployment.
+
+Until then, do not scrape, screenshot, download, or manually copy Amazon product images. The site's original non-product cover treatments remain the compliant fallback.

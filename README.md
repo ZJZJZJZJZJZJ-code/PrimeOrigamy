@@ -15,10 +15,13 @@ Production: https://foldflightlab.github.io/
 - Primary-source cross-checking where useful (for example NASA, Smithsonian, OrigamiUSA)
 - No copied Amazon prices, ratings, customer reviews, product images, or stock claims
 - No fabricated product testing
-- No own analytics, advertising pixels, newsletter system, or visitor accounts at this stage
+- No own analytics, advertising pixels, or visitor accounts at this stage
+- Consent-first Flight Fix Dispatch signup with structured email records and an API-ready upgrade path
+- Subscriber addresses are an owned audience relationship, not a list for resale; third-party direct marketing requires separate, specific consent
 
 ## Production controls
 - GitHub Pages over HTTPS
 - GitHub Actions pinned to immutable commit SHAs
 - CI checks legacy branding/URLs, affiliate configuration, approved public email, SEO metadata, sitemap integrity, and broken internal links
 - Private credentials, tax records, banking data, identity documents and admin controls must never be committed here
+- Historic Git PII is audited separately; current legal contact details remain intentionally public only where required by the live Impressum/privacy notice

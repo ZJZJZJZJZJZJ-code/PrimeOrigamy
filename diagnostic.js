@@ -10,7 +10,10 @@
       checks:['Compare left and right wing angles from the front.','Sight down the body for twist or a skewed center fold.','Compare trailing edges before making any trim change.'],
       variables:['Wing symmetry','Body twist','Trailing-edge trim','Launch direction'],
       guide:'/articles/flight-variables.html',
-      guideLabel:'Open the full flight-variable diagnosis →'
+      guideLabel:'Open the full flight-variable diagnosis →',
+      shopKey:'bookChampion',
+      shopLabel:'See the tuning reference on Amazon.de · Affiliate-Link',
+      shopCopy:'For readers who want deeper adjustment and flight-theory context after the free checks.'
     },
     dive:{
       label:'Immediate dive',
@@ -19,7 +22,10 @@
       checks:['Inspect the nose for crushed or softened folds.','Compare wing angle and left/right symmetry.','Check for excessive downward trailing-edge trim.'],
       variables:['Nose condition','Wing angle','Downward trim','Launch angle'],
       guide:'/articles/flight-variables.html',
-      guideLabel:'See the diagnostic order for dives →'
+      guideLabel:'See the diagnostic order for dives →',
+      shopKey:'a4_80',
+      shopLabel:'Find fresh A4 80 gsm test paper on Amazon.de · Affiliate-Link',
+      shopCopy:'A fresh, consistent baseline helps separate damaged-paper effects from geometry changes.'
     },
     stall:{
       label:'Climb then stall',
@@ -28,7 +34,10 @@
       checks:['Check for too much upward trailing-edge trim.','Keep mass distribution unchanged while testing trim.','Repeat the same launch angle and force before judging the result.'],
       variables:['Upward trim','Mass distribution','Launch angle','Launch force'],
       guide:'/articles/flight-variables.html',
-      guideLabel:'Open the stall diagnostic path →'
+      guideLabel:'Open the stall diagnostic path →',
+      shopKey:'bookChampion',
+      shopLabel:'See the tuning reference on Amazon.de · Affiliate-Link',
+      shopCopy:'Optional deeper reading on adjustment and flight theory—after the free trim checks.'
     },
     inconsistent:{
       label:'Inconsistent flights',
@@ -37,7 +46,10 @@
       checks:['Mark a consistent release point and launch direction.','Use the same thrower and similar force across trials.','Record several throws before changing the plane.'],
       variables:['Release point','Launch angle','Launch force','Trial count'],
       guide:'/articles/test-paper-planes.html',
-      guideLabel:'Run the five-trial method →'
+      guideLabel:'Run the five-trial method →',
+      shopKey:'a4_80',
+      shopLabel:'Find a consistent A4 80 gsm baseline on Amazon.de · Affiliate-Link',
+      shopCopy:'Use one pack and one configuration when material consistency is part of the problem.'
     }
   };
 
@@ -86,6 +98,7 @@
         <div class="lab-checks"><span class="lab-mini-label">Check these first</span><ol data-lab-checks></ol></div>
         <div class="lab-step lab-variable-step"><span>02</span><div><small>Change one variable</small><label for="lab-variable">Choose the single variable you will inspect or change first</label><select id="lab-variable" data-lab-variable></select><p class="variable-note" data-variable-note></p></div></div>
         <a class="button button-primary lab-guide" data-lab-guide href="/articles/flight-variables.html">Open the full diagnosis →</a>
+        <div class="lab-commerce" data-lab-commerce><span>Optional next purchase</span><p data-lab-shop-copy></p><a data-lab-shop href="#">Amazon.de · Affiliate-Link</a><small>Werbung · Als Amazon-Partner verdiene ich an qualifizierten Verkäufen.</small></div>
       </div>
     </div>
     <div class="trial-lab" aria-labelledby="trial-lab-title">
@@ -113,7 +126,22 @@
   const variableNote=section.querySelector('[data-variable-note]');
   const guide=section.querySelector('[data-lab-guide]');
   const vizLabel=section.querySelector('[data-viz-label]');
+  const shopCopy=section.querySelector('[data-lab-shop-copy]');
+  const shopLink=section.querySelector('[data-lab-shop]');
   const symptomButtons=[...section.querySelectorAll('[data-symptom]')];
+
+  const affiliateHref=(key)=>{
+    const c=window.FOLDFLIGHTLAB||{};
+    const item=(c.links||{})[key];
+    if(!item || !c.commercializationEnabled) return null;
+    const domain=c.amazonDomain||'https://www.amazon.de';
+    if(item.type==='direct' && /^[A-Z0-9]{10}$/i.test(item.asin||'')){
+      const params=new URLSearchParams(); if(c.associateTag)params.set('tag',c.associateTag);
+      return `${domain}/dp/${encodeURIComponent(item.asin)}${params.toString()?'?'+params.toString():''}`;
+    }
+    const params=new URLSearchParams({k:item.query||key}); if(c.associateTag)params.set('tag',c.associateTag);
+    return `${domain}/s?${params.toString()}`;
+  };
 
   const render=(key)=>{
     const data=states[key]||states.turn;
@@ -127,6 +155,13 @@
     guide.href=data.guide;
     guide.textContent=data.guideLabel;
     vizLabel.textContent=data.label;
+    shopCopy.textContent=data.shopCopy;
+    const href=affiliateHref(data.shopKey);
+    shopLink.textContent=data.shopLabel;
+    shopLink.href=href||'#';
+    shopLink.target=href?'_blank':'';
+    shopLink.rel='sponsored nofollow noopener';
+    shopLink.setAttribute('aria-label',`Werbung · ${data.shopLabel}`);
   };
 
   symptomButtons.forEach(btn=>btn.addEventListener('click',()=>render(btn.dataset.symptom)));

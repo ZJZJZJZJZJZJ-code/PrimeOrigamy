@@ -7,6 +7,7 @@
   };
   ensureStylesheet('/community.css');
   ensureStylesheet('/social-commerce.css');
+  ensureStylesheet('/business.css');
 
   const c=window.FOLDFLIGHTLAB||{};
   const domain=c.amazonDomain||'https://www.amazon.de';
@@ -52,6 +53,14 @@
   const desktopNav=document.querySelector('.desktop-nav');
   addInstagramLink(desktopNav,'Instagram ↗','social-nav-link');
 
+  if(desktopNav && !desktopNav.querySelector('a[href="/paper-airplane-troubleshooting.html"]')){
+    const fixLink=document.createElement('a');
+    fixLink.href='/paper-airplane-troubleshooting.html';
+    fixLink.textContent='Fix a flight';
+    fixLink.className='fix-nav-link';
+    desktopNav.prepend(fixLink);
+  }
+
   const footerBottom=document.querySelector('.footer-bottom');
   if(footerBottom){
     const group=footerBottom.querySelector('span:last-child');
@@ -60,6 +69,12 @@
         const link=document.createElement('a');
         link.href='/community-questions.html'; link.textContent='Community questions';
         group.prepend(document.createTextNode(' · ')); group.prepend(link);
+      }
+      if(!group.querySelector('a[href="/join.html"]')){
+        group.append(document.createTextNode(' · '));
+        const join=document.createElement('a');
+        join.href='/join.html'; join.textContent='Flight Fix Dispatch';
+        group.appendChild(join);
       }
       if(instagram && !group.querySelector(`a[href="${instagram}"]`)){
         group.append(document.createTextNode(' · '));
@@ -149,6 +164,25 @@
       anchor.parentNode.insertBefore(section,anchor);
     }
   }
+
+  if(isHome && !document.querySelector('.conversion-section')){
+    const anchor=document.querySelector('.method-section');
+    if(anchor){
+      const section=document.createElement('section');
+      section.className='conversion-section';
+      section.setAttribute('aria-labelledby','conversion-heading');
+      section.innerHTML=`<div class="wrap conversion-grid"><div class="conversion-copy"><span class="section-label">The free Flight Fix Dispatch</span><h2 id="conversion-heading">One useful diagnosis.<br>Then one better test.</h2><p>Get practical paper-flight troubleshooting, test protocols and carefully matched material or book recommendations. No daily noise, no copied marketplace claims and no hidden tracker.</p><div class="conversion-points"><span><b>01</b> Symptom-first fixes</span><span><b>02</b> Repeatable field tests</span><span><b>03</b> Criteria-first buying notes</span></div><a class="text-link" href="/paper-airplane-troubleshooting.html">Open the complete troubleshooting center →</a></div><form class="subscribe-card" data-subscribe-form data-source="homepage" novalidate><span class="subscribe-kicker">Build your flight log</span><h3>Join the Flight Fix Dispatch.</h3><p>Occasional lab notes for people who want fewer random tweaks and more repeatable flights.</p><label><span>Email address</span><input name="email" type="email" autocomplete="email" inputmode="email" required placeholder="redacted-email@example.invalid"></label><label class="consent-row"><input name="consent" type="checkbox" required><span>I agree to receive FoldFlight Lab emails about diagnostics, experiments and relevant affiliate recommendations. I can unsubscribe at any time.</span></label><button class="button button-primary" type="submit">Join the free dispatch →</button><p class="subscribe-fineprint">Consent is recorded with the signup. Your address is not sold. <a href="/privacy.html#newsletter">Privacy details</a>.</p><div class="subscribe-status" data-subscribe-status role="status" aria-live="polite"></div></form></div></section>`;
+      anchor.parentNode.insertBefore(section,anchor);
+    }
+  }
+
+  const loadSubscription=()=>{
+    if(!document.querySelector('[data-subscribe-form]') || document.querySelector('script[data-subscription-script]')) return;
+    const script=document.createElement('script');
+    script.src='/subscription.js'; script.defer=true; script.dataset.subscriptionScript='true';
+    document.body.appendChild(script);
+  };
+  loadSubscription();
 
   const isFlightHub=location.pathname==='/paper-airplanes.html' || location.pathname.endsWith('/paper-airplanes.html');
   if(isFlightHub){
