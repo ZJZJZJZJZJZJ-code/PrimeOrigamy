@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "campaign_id": "foldflight-launch-003-010-20260817",
+  "expected_username": "foldflightlab",
+  "generated_at": "2026-08-17T14:20:00+02:00",
+  "landing_page": "https://foldflightlab.github.io/articles/100-papierdrachen-buch.html",
+  "items": [
+    {
+      "id": "003",
+      "status": "approved",
+      "publish_at": "2026-08-17T15:00:00+02:00",
+      "type": "carousel",
+      "media_urls": [
+        "https://cdn.creativeclaw.co/u/7c3f9fd0/images/5aa34443-0d42-47c8-b0c0-b83012c99112.jpg",
+        "https://cdn.creativeclaw.co/u/7c3f9fd0/images/872a6ef8-88eb-4936-b38e-115434ae4991.jpg",
+        "https://cdn.creativeclaw.co/u/7c3f9fd0/images/01496a4b-2152-40b1-9fd1-29f746445d1a.jpg",
+        "https://cdn.creativeclaw.co/u/7c3f9fd0/images/1ea00f4d-eea1-486d-8913-95206e0d2570.jpg"
+      ],
+      "caption": "100 Papierdrachen — 100 Motivbögen, vier Flugtypen und direkt Lust aufs Falten. 🐉✈️\n\nSwipe:\n1 → Buch + Idee\n2 → die vier Flugtypen\n3 → Motiv wählen, falten, werfen\n4 → welchen Drachen würdest du zuerst nehmen?\n\nAuf FoldFlight Lab machen wir daraus mehr als nur Basteln: Wir verbinden Falten mit kleinen Flug-Challenges und vergleichen eine Sache nach der anderen.\n\nDen criteria-first Guide zum Buch findest du über den Link im Profil.\n\nWerbung / Affiliate-Link: Wenn du über unseren gekennzeichneten Amazon.de-Link kaufst, kann FoldFlight Lab eine Provision erhalten. Für dich ändert sich der Preis nicht.\n\n#papierdrachen #papierflieger #falten #basteln #paperairplane #foldflightlab #flugtest #buchidee"
+    },
+    {
+      "id": "004",
+      "status": "approved",
+      "publish_at": "2026-08-17T17:15:00+02:00",
+      "type": "reel",
+      "media_urls": ["https://cdn.creativeclaw.co/u/7c3f9fd0/videos/e2103937-c5eb-4267-8487-c705079c3a70.mp4"],
+      "caption": "Aus dem Buch. In die Luft. 🐉\n\n100 Papierdrachen kombiniert farbige Motivbögen mit vier Falt-Typen. Danach wird es interessant: Ziel, Flugzeit oder Distanz vergleichen.\n\nWelche Challenge würdest du zuerst machen?\n🎯 Ziel\n⏱️ Flugzeit\n📏 Distanz\n\nGuide + Buchroute: Link im Profil.\n\nWerbung / Affiliate-Link bei der Buchempfehlung.\n\n#papierdrachen #papierflieger #reelsdeutsch #falten #flugtest #foldflightlab #paperairplane"
+    },
+    {
+      "id": "005",
+      "status": "approved",
+      "publish_at": "2026-08-17T19:30:00+02:00",
+      "type": "image",
+      "media_urls": ["https://cdn.creativeclaw.co/u/7c3f9fd0/images/2ef86743-a547-4394-acaa-630fdd59b3e5.jpg"],
+      "caption": "Vier Flugstile — welcher passt zu dir?\n\n1 Spitznase\n2 Klingenflügel\n3 Himmelsgleiter\n4 Windreiter\n\nSchreib nur die Zahl in die Kommentare. Morgen können wir den meistgewählten Typ als Testformat aufgreifen.\n\nGuide zum Buch: Link im Profil.\n\n#papierdrachen #papierflieger #falten #community #foldflightlab #paperairplane"
+    },
+    {
+      "id": "006",
+      "status": "approved",
+      "publish_at": "2026-08-17T21:45:00+02:00",
+      "type": "image",
+      "media_urls": ["https://cdn.creativeclaw.co/u/7c3f9fd0/images/f869c4db-2270-4b58-a598-3cb75b327f49.jpg"],
+      "caption": "Welche Optik würdest du zuerst falten?\n\n🔥 Feuer\n💧 Wasser\n🌿 Wald\n🌙 Nacht\n\nDas ist bewusst eine Community-Frage, kein Flugergebnis. Wir wollen sehen, welches Design visuell zuerst gewinnt.\n\nKommentar = dein Favorit.\nGuide zum Buch: Link im Profil.\n\n#papierdrachen #papierflieger #basteln #falten #foldflightlab #paperairplane"
+    },
+    {
+      "id": "007",
+      "status": "approved",
+      "publish_at": "2026-08-18T07:30:00+02:00",
+      "type": "image",
+      "media_urls": ["https://cdn.creativeclaw.co/u/7c3f9fd0/images/50f9c727-b955-4cc0-b612-81d047ef06fa.jpg"],
+      "caption": "Drei Challenges, die aus einem Faltbuch ein Flugspiel machen:\n\n🎯 Ziel treffen\n⏱️ Flugzeit zählen\n📏 Distanz vergleichen\n\nWichtig: immer dieselbe Challenge sauber wiederholen, statt alles gleichzeitig zu ändern.\n\nSpeichere den Post für den nächsten Falt-Nachmittag.\n\n#papierdrachen #flugtest #papierflieger #stemlearning #foldflightlab #basteln"
+    },
+    {
+      "id": "008",
+      "status": "approved",
+      "publish_at": "2026-08-18T09:15:00+02:00",
+      "type": "image",
+      "media_urls": ["https://cdn.creativeclaw.co/u/7c3f9fd0/images/75051bf8-315c-4551-bf71-2e6f00f61428.jpg"],
+      "caption": "Warum sind 100 Motivbögen interessant?\n\nWeil die Vorbereitung praktisch wegfällt:\nMotiv wählen → falten → fliegen.\n\nDas ist besonders stark, wenn du viele verschiedene Designs ausprobieren willst, ohne jedes Blatt zuerst selbst gestalten zu müssen.\n\nDen vollständigen Guide + Amazon.de-Route findest du im Profil.\n\nWerbung / Affiliate-Link bei der Buchempfehlung.\n\n#papierdrachen #bastelbuch #falten #kreativmitpapier #foldflightlab"
+    },
+    {
+      "id": "009",
+      "status": "approved",
+      "publish_at": "2026-08-18T11:15:00+02:00",
+      "type": "image",
+      "media_urls": ["https://cdn.creativeclaw.co/u/7c3f9fd0/images/47229211-19bf-4be6-b8dc-69f55259b3f0.jpg"],
+      "caption": "Vier Falt-Typen im Buch: Spitznase, Klingenflügel, Himmelsgleiter und Windreiter.\n\nWas ich daran für FoldFlight Lab spannend finde: Nicht nur das Motiv ändert sich — die Modelle geben dir unterschiedliche Dinge zum Beobachten.\n\nWelchen Typ sollen wir zuerst als echten Vergleich testen?\n\n#papierdrachen #papierflieger #flugtest #falten #foldflightlab #paperairplane"
+    },
+    {
+      "id": "010",
+      "status": "approved",
+      "publish_at": "2026-08-18T13:00:00+02:00",
+      "type": "image",
+      "media_urls": ["https://cdn.creativeclaw.co/u/7c3f9fd0/images/c5ed84ad-9a42-40c9-a78e-a31c906a40ff.jpg"],
+      "caption": "Lohnt sich „100 Papierdrachen“?\n\nPasst besonders, wenn du:\n✓ sofort losfalten willst\n✓ viele farbige Motive möchtest\n✓ daraus kleine Flug-Challenges machen willst\n\nEher nicht als tiefes Aerodynamik-Lehrbuch gedacht.\n\nUnsere vollständige criteria-first Einordnung findest du über den Link im Profil.\n\nWerbung / Affiliate-Link: Bei einem qualifizierten Kauf über unseren Amazon.de-Link kann FoldFlight Lab eine Provision erhalten.\n\n#papierdrachen #buchempfehlung #papierflieger #basteln #foldflightlab"
+    }
+  ]
+}
