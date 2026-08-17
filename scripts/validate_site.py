@@ -18,12 +18,18 @@ assert cfg.get("commercializationEnabled") is True
 assert cfg.get("associateTag") == "foldflightlab-21"
 
 subscription = cfg.get("subscription", {})
-assert subscription.get("mode") in {"email", "api"}
+assert set(subscription) == {"email", "dispatchName", "consentVersion"}
 assert subscription.get("consentVersion") == "2026-08-17"
-if subscription.get("mode") == "email":
-    assert re.fullmatch(r"[^\s@]+@[^\s@]+\.[^\s@]+", subscription.get("email", ""))
-else:
-    assert subscription.get("endpoint", "").startswith("https://")
+assert re.fullmatch(r"[^\s@]+@[^\s@]+\.[^\s@]+", subscription.get("email", ""))
+
+subscription_js = (ROOT / "subscription.js").read_text(encoding="utf-8")
+for forbidden in (
+    "fetch(", "XMLHttpRequest", "sendBeacon", "WebSocket", "endpoint", "mode==='api'",
+    "localStorage", "sessionStorage", "document.cookie", "fingerprint", "source=",
+):
+    assert forbidden not in subscription_js, f"subscription.js contains forbidden transfer/storage path: {forbidden}"
+assert "window.location.href=`mailto:${destination}" in subscription_js
+assert "consent_timestamp=${timestamp}" in subscription_js
 
 links = cfg.get("links", {})
 for key, item in links.items():
@@ -80,10 +86,24 @@ for page in ("join.html", "paper-airplane-troubleshooting.html"):
     text = (ROOT / page).read_text(encoding="utf-8")
     assert "data-subscribe-form" in text
     assert "Your address is not sold" in text
+    assert '<input name="consent" type="checkbox" required>' in text
+    assert not re.search(r'<input[^>]+name="consent"[^>]+checked', text, re.I)
+
+app = (ROOT / "app.js").read_text(encoding="utf-8")
+assert '<input name="consent" type="checkbox" required>' in app
+assert not re.search(r'<input[^>]+name="consent"[^>]+checked', app, re.I)
 
 privacy = (ROOT / "privacy.html").read_text(encoding="utf-8")
 assert 'id="newsletter"' in privacy
 assert "Art. 6 Abs. 1 lit. a DSGVO" in privacy
+assert "Google/Gmail ist damit der derzeitige technische E-Mail-Dienst und Empfänger" in privacy
+assert "nicht verkauft, lizenziert" in privacy
+
+readme = (ROOT / "README.md").read_text(encoding="utf-8")
+obligations = (ROOT / "BUSINESS-OBLIGATIONS.md").read_text(encoding="utf-8")
+for text in (readme, obligations):
+    assert "API-ready" not in text
+    assert "third-party direct marketing" not in text
 
 print(
     "HTML/SEO/privacy/internal-link/Amazon-key validation passed. "

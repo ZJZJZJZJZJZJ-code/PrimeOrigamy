@@ -16,8 +16,8 @@ Production: https://foldflightlab.github.io/
 - No copied Amazon prices, ratings, customer reviews, product images, or stock claims
 - No fabricated product testing
 - No own analytics, advertising pixels, or visitor accounts at this stage
-- Consent-first Flight Fix Dispatch signup with structured email records and an API-ready upgrade path
-- Subscriber addresses are an owned audience relationship, not a list for resale; third-party direct marketing requires separate, specific consent
+- Consent-first Flight Fix Dispatch signup using visitor-initiated email to the published FoldFlight Lab Gmail address
+- Subscriber addresses are used only for the FoldFlight Lab updates described at signup; they are not sold, licensed, shared for another party's marketing, or repurposed outside that consent
 
 ## Production controls
 - GitHub Pages over HTTPS

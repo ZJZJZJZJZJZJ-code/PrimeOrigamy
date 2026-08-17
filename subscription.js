@@ -14,13 +14,11 @@
       status.dataset.state=state;
     };
 
-    form.addEventListener('submit',async event=>{
+    form.addEventListener('submit',event=>{
       event.preventDefault();
       const data=new FormData(form);
       const email=String(data.get('email')||'').trim();
       const consent=data.get('consent')==='on';
-      const honeypot=String(data.get('company')||'').trim();
-      if(honeypot) return;
       if(!validEmail(email)){
         setStatus('Enter a valid email address.','error');
         form.querySelector('[name="email"]')?.focus();
@@ -32,36 +30,20 @@
         return;
       }
 
-      const source=form.dataset.source||location.pathname;
       const timestamp=new Date().toISOString();
-      const payload={email,source,consent:true,consent_version:cfg.consentVersion||'2026-08-17',consent_timestamp:timestamp};
+      const consentVersion=cfg.consentVersion||'2026-08-17';
       button?.setAttribute('disabled','');
       setStatus('Preparing your signup…','pending');
-
-      if(cfg.mode==='api' && cfg.endpoint){
-        try{
-          const response=await fetch(cfg.endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
-          if(!response.ok) throw new Error('Signup request failed');
-          form.reset();
-          setStatus('Check your inbox to confirm your subscription.','success');
-        }catch(error){
-          setStatus('Signup could not be completed. Please try again later.','error');
-        }finally{
-          button?.removeAttribute('disabled');
-        }
-        return;
-      }
 
       const destination=cfg.email||'serpentcianide@gmail.com';
       const subject=encodeURIComponent(`[FFL-SUBSCRIBER] ${cfg.dispatchName||'Flight Fix Dispatch'} signup`);
       const body=encodeURIComponent([
         `email=${email}`,
-        `source=${source}`,
         `consent=true`,
-        `consent_version=${payload.consent_version}`,
+        `consent_version=${consentVersion}`,
         `consent_timestamp=${timestamp}`,
         '',
-        'I consent to receive FoldFlight Lab emails about paper-flight diagnostics, experiments, resources and relevant affiliate recommendations. I understand I can unsubscribe at any time.'
+        'I consent to receive FoldFlight Lab updates about paper-flight experiments, diagnostic tools, guides, and occasional directly related commercial or affiliate content. I understand I can unsubscribe at any time.'
       ].join('\n'));
       window.location.href=`mailto:${destination}?subject=${subject}&body=${body}`;
       setStatus('Your email app is opening. Send the prefilled message to complete the signup.','success');

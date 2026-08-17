@@ -42,4 +42,4 @@ Current legal contact details in `imprint.html` and `privacy.html` are intention
 
 ## Subscriber data rule
 
-Subscriber addresses may be used for the specific FoldFlight Lab communications described at signup. They are not to be sold. Sharing with another party for that party's own direct marketing would require a separate, specific consent and updated privacy information. Every mailing must offer a simple withdrawal/unsubscribe route.
+Subscriber addresses may be used only for the FoldFlight Lab communications described at signup: paper-flight experiments, diagnostic tools, guides, and occasional directly related commercial or affiliate content. They must not be sold, licensed, shared for another party's marketing, or repurposed outside that consent. The current signup may deliver data only through a visitor-initiated email to the published FoldFlight Lab Gmail address. Every mailing must offer the published contact email as a simple withdrawal/unsubscribe route.
