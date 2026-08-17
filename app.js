@@ -149,4 +149,16 @@
       anchor.parentNode.insertBefore(section,anchor);
     }
   }
+
+  const isFlightHub=location.pathname==='/paper-airplanes.html' || location.pathname.endsWith('/paper-airplanes.html');
+  if(isFlightHub){
+    ensureStylesheet('/diagnostic.css');
+    if(!document.querySelector('script[data-flight-diagnostic-script]')){
+      const script=document.createElement('script');
+      script.src='/diagnostic.js';
+      script.defer=true;
+      script.dataset.flightDiagnosticScript='true';
+      document.body.appendChild(script);
+    }
+  }
 })();
