@@ -82,7 +82,7 @@
         </div>
       </div>
       <div class="lab-diagnostic-panel">
-        <div class="lab-step"><span>01</span><div><small>Symptom</small><h3 data-lab-headline>It keeps turning left or right.</h3><p data-lab-summary></p></div></div>
+        <div class="lab-step" aria-live="polite"><span>01</span><div><small>Symptom</small><h3 data-lab-headline>It keeps turning left or right.</h3><p data-lab-summary></p></div></div>
         <div class="lab-checks"><span class="lab-mini-label">Check these first</span><ol data-lab-checks></ol></div>
         <div class="lab-step lab-variable-step"><span>02</span><div><small>Change one variable</small><label for="lab-variable">Choose the single variable you will inspect or change first</label><select id="lab-variable" data-lab-variable></select><p class="variable-note" data-variable-note></p></div></div>
         <a class="button button-primary lab-guide" data-lab-guide href="/articles/flight-variables.html">Open the full diagnosis →</a>
@@ -101,8 +101,7 @@
         </div>
         <div class="trial-actions"><button type="button" class="lab-clear" data-clear-trials>Clear measurements</button><a href="/articles/test-paper-planes.html">Open the full field-test method →</a></div>
       </div>
-    </div>
-    <noscript><div class="lab-noscript">JavaScript is off. The static diagnostic cards immediately below remain fully usable.</div></noscript>`;
+    </div>`;
 
   const anchor=host.querySelector('.section-heading');
   host.insertBefore(section,anchor||host.firstChild);
