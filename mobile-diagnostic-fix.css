@@ -1,0 +1,27 @@
+/* FoldFlight Lab — mobile diagnostic hardening */
+@media(max-width:980px){
+  .lab-shell{grid-template-columns:minmax(0,1fr)!important}
+  .lab-shell,.lab-visual-panel,.lab-diagnostic-panel,.trial-lab,.trial-console{min-width:0!important;max-width:100%}
+}
+@media(max-width:700px){
+  .flight-lab,.lab-intro,.lab-shell,.lab-visual-panel,.lab-diagnostic-panel,.trial-lab{width:100%;max-width:100%;min-width:0}
+  .lab-intro h2{font-size:clamp(2rem,10vw,2.7rem);word-break:normal;overflow-wrap:normal}
+  .flight-viz svg{width:100%;max-width:100%;height:auto}
+  .viz-status{max-width:calc(100% - 22px)}
+  .symptom-picker{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .symptom-picker button{width:100%;min-width:0}
+  .lab-step{grid-template-columns:34px minmax(0,1fr)!important}
+  .lab-step>div,.lab-variable-step>div{min-width:0}
+  .lab-checks{margin:20px 0!important}
+  .lab-variable-step select{max-width:100%}
+  .lab-guide{margin:20px 0 0!important;width:100%;max-width:100%;white-space:normal;text-align:center}
+  .lab-commerce{margin-left:0!important}
+  .trial-inputs{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .trial-actions a{overflow-wrap:anywhere}
+}
+@media(max-width:430px){
+  .lab-diagnostic-panel{padding-inline:15px!important}
+  .trial-lab{padding-inline:14px!important}
+  .symptom-picker{gap:7px}
+  .symptom-picker button{padding:11px 9px}
+}
