@@ -49,8 +49,9 @@ jobs:
           node --check app.js
           node --check diagnostic.js
           grep -q 'data-flight-lab' diagnostic.js
-          grep -q "ensureStylesheet('/diagnostic.css')" app.js
+          grep -q "diagnosticStyles.href='/diagnostic.css'" app.js
           grep -q "script.src='/diagnostic.js'" app.js
+          grep -q "aria-live=\"polite\"" diagnostic.js
           grep -q '<loc>https://foldflightlab.github.io/</loc>' sitemap.xml
           for f in origami-paper.html paper-airplanes.html origami-books.html community-questions.html; do grep -q "https://foldflightlab.github.io/$f" sitemap.xml; done
           grep -q 'https://foldflightlab.github.io/community-questions.html' sitemap.txt
