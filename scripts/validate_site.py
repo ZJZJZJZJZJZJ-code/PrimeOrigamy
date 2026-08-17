@@ -1,10 +1,12 @@
 from pathlib import Path
 import json
 import re
+import xml.etree.ElementTree as ET
 
 
 ROOT = Path(__file__).resolve().parents[1]
 EXEMPT = {"404.html", "imprint.html", "privacy.html", "affiliate-disclosure.html"}
+BASE = "https://foldflightlab.github.io/"
 
 
 def fail(message: str) -> None:
@@ -45,10 +47,31 @@ for path in ROOT.rglob("*.html"):
     text = path.read_text(encoding="utf-8")
     rel = path.relative_to(ROOT).as_posix()
     used.update(re.findall(r'data-amazon="([^"]+)"', text))
+
+    if re.search(r'<(?:script|img|iframe|link|source)\b[^>]+(?:src|href)="http://', text, re.I):
+        fail(f"{rel}: insecure active HTTP resource")
+    if re.search(r'href="javascript:', text, re.I):
+        fail(f"{rel}: javascript: URL detected")
+    if re.search(r'<input\b[^>]+type="password"', text, re.I):
+        fail(f"{rel}: password input must not be hosted on GitHub Pages")
+    if re.search(r'<form\b[^>]+action="http://', text, re.I):
+        fail(f"{rel}: insecure form action")
+
+    for anchor in re.findall(r'<a\b[^>]*target="_blank"[^>]*>', text, re.I):
+        rel_match = re.search(r'rel="([^"]*)"', anchor, re.I)
+        if not rel_match or "noopener" not in rel_match.group(1).lower().split():
+            fail(f"{rel}: target=_blank link missing noopener")
+
+    ids = re.findall(r'\bid="([^"]+)"', text, re.I)
+    duplicates = sorted({item for item in ids if ids.count(item) > 1})
+    if duplicates:
+        fail(f"{rel}: duplicate id(s): {', '.join(duplicates)}")
+
     if rel not in EXEMPT:
         required = [
             (r"<title>[^<]+</title>", "title"),
             (r'<meta name="description" content="[^"]+"', "meta description"),
+            (r'<meta name="viewport" content="[^"]+"', "viewport"),
             (r'<link rel="canonical" href="https://foldflightlab\.github\.io/[^"]*"', "canonical"),
         ]
         for pattern, label in required:
@@ -59,6 +82,7 @@ for path in ROOT.rglob("*.html"):
             if canonical.group(1) in canonical_urls:
                 fail(f"{rel}: duplicate canonical {canonical.group(1)}")
             canonical_urls.add(canonical.group(1))
+
     for href in re.findall(r'href="([^"]+)"', text):
         if href.startswith(("#", "http://", "https://", "mailto:", "tel:", "javascript:")):
             continue
@@ -105,7 +129,30 @@ for text in (readme, obligations):
     assert "API-ready" not in text
     assert "third-party direct marketing" not in text
 
+sitemap_txt = {
+    line.strip() for line in (ROOT / "sitemap.txt").read_text(encoding="utf-8").splitlines()
+    if line.strip()
+}
+xml_root = ET.parse(ROOT / "sitemap.xml").getroot()
+namespace = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9"}
+sitemap_xml = {
+    node.text.strip() for node in xml_root.findall("sm:url/sm:loc", namespace)
+    if node.text and node.text.strip()
+}
+for sitemap_name, sitemap_urls in (("sitemap.txt", sitemap_txt), ("sitemap.xml", sitemap_xml)):
+    missing_urls = sorted(canonical_urls - sitemap_urls)
+    extra_urls = sorted(sitemap_urls - canonical_urls)
+    if missing_urls:
+        fail(f"{sitemap_name}: missing canonical URL(s): " + ", ".join(missing_urls))
+    if extra_urls:
+        fail(f"{sitemap_name}: non-canonical URL(s): " + ", ".join(extra_urls))
+
+robots = (ROOT / "robots.txt").read_text(encoding="utf-8")
+assert "User-agent: OAI-SearchBot" in robots
+assert "Sitemap: https://foldflightlab.github.io/sitemap.xml" in robots
+assert "Sitemap: https://foldflightlab.github.io/sitemap.txt" in robots
+
 print(
-    "HTML/SEO/privacy/internal-link/Amazon-key validation passed. "
-    f"{len(used)} affiliate intents and {len(canonical_urls)} canonical pages checked."
+    "HTML/SEO/privacy/security/internal-link/Amazon validation passed. "
+    f"{len(used)} affiliate intents, {len(canonical_urls)} canonical pages, and sitemap parity checked."
 )
