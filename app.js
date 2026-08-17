@@ -152,13 +152,24 @@
 
   const isFlightHub=location.pathname==='/paper-airplanes.html' || location.pathname.endsWith('/paper-airplanes.html');
   if(isFlightHub){
-    ensureStylesheet('/diagnostic.css');
-    if(!document.querySelector('script[data-flight-diagnostic-script]')){
+    const loadFlightDiagnostic=()=>{
+      if(document.querySelector('script[data-flight-diagnostic-script]')) return;
       const script=document.createElement('script');
       script.src='/diagnostic.js';
       script.defer=true;
       script.dataset.flightDiagnosticScript='true';
       document.body.appendChild(script);
+    };
+    const existingDiagnosticStyles=document.querySelector('link[href="/diagnostic.css"]');
+    if(existingDiagnosticStyles){
+      if(existingDiagnosticStyles.sheet) loadFlightDiagnostic();
+      else existingDiagnosticStyles.addEventListener('load',loadFlightDiagnostic,{once:true});
+    }else{
+      const diagnosticStyles=document.createElement('link');
+      diagnosticStyles.rel='stylesheet';
+      diagnosticStyles.href='/diagnostic.css';
+      diagnosticStyles.addEventListener('load',loadFlightDiagnostic,{once:true});
+      document.head.appendChild(diagnosticStyles);
     }
   }
 })();
