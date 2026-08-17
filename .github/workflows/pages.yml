@@ -44,6 +44,13 @@ jobs:
           test -f sitemap.txt
           test -f community-questions.html
           test -f community.css
+          test -f diagnostic.js
+          test -f diagnostic.css
+          node --check app.js
+          node --check diagnostic.js
+          grep -q 'data-flight-lab' diagnostic.js
+          grep -q "ensureStylesheet('/diagnostic.css')" app.js
+          grep -q "script.src='/diagnostic.js'" app.js
           grep -q '<loc>https://foldflightlab.github.io/</loc>' sitemap.xml
           for f in origami-paper.html paper-airplanes.html origami-books.html community-questions.html; do grep -q "https://foldflightlab.github.io/$f" sitemap.xml; done
           grep -q 'https://foldflightlab.github.io/community-questions.html' sitemap.txt
