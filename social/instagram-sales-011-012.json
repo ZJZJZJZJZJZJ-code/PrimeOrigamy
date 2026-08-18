@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "campaign_id": "foldflight-sales-011-012-20260818",
+  "expected_username": "foldflightlab",
+  "generated_at": "2026-08-18T20:22:00+02:00",
+  "landing_page": "https://foldflightlab.github.io/100-papierdrachen/",
+  "items": [
+    {
+      "id": "011",
+      "status": "approved",
+      "publish_at": "2026-08-18T20:30:00+02:00",
+      "type": "reel",
+      "media_urls": ["https://cdn.creativeclaw.co/u/7c3f9fd0/videos/dab19c09-5ad5-4004-abc3-0fc6412419c8.mp4"],
+      "caption": "100 Motive. Vier Flugtypen. 🐉✈️\n\nMotiv wählen → falten → Ziel, Flugzeit oder Distanz daraus machen.\n\n👉 Buch + Guide: Link im Profil.\n\nWerbung / Affiliate-Link: Bei einem qualifizierten Kauf über unseren Amazon.de-Link kann FoldFlight Lab eine Provision erhalten.\n\n#papierdrachen #papierflieger #falten #basteln #foldflightlab"
+    },
+    {
+      "id": "012",
+      "status": "approved",
+      "publish_at": "2026-08-19T10:30:00+02:00",
+      "type": "reel",
+      "media_urls": ["https://cdn.creativeclaw.co/u/7c3f9fd0/videos/28cfac22-1c62-46e9-8f4c-77887b8a26ae.mp4"],
+      "caption": "Welcher zuerst? 🐉\n\n1 Spitznase\n2 Klingenflügel\n3 Himmelsgleiter\n4 Windreiter\n\nKommentiere nur 1–4.\n\n👉 Alle vier Typen + Buch: Link im Profil.\n\nWerbung / Affiliate-Link.\n\n#papierdrachen #papierflieger #falten #foldflightlab"
+    }
+  ]
+}
